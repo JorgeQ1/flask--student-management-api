@@ -44,7 +44,6 @@ class GetStudents(Resource):
             student_list.append(student_data)
             
         return {"Students": student_list}, 200
-        # return {'students': [student.__repr__() for student in students]}
     
         
         
@@ -81,11 +80,13 @@ class UpdateStudent(Resource):
                 return 'Updated', 200
         else:
             return {'error': 'Request must be JSON'}, 400
-        
+
+
+# For GET request to http://localhost:5000/api/get_record/<id> for a particular student        
 class StudentDetail(Resource):
     def get(self, student_id):
         student = Student.query.get_or_404(student_id)
-        return make_response(jsonify(student.__repr__()))
+        return student.__repr__()
             
 
 
