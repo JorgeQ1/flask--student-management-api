@@ -45,6 +45,13 @@ class GetStudents(Resource):
             
         return {"Students": student_list}, 200
     
+
+# For GET request to http://localhost:5000/api/get_record/<id> for a particular student        
+class GetSingleStudent(Resource):
+    def get(self, student_id):
+        student = Student.query.get_or_404(student_id)
+        return student.__repr__()
+    
         
         
 # For Post request to http://localhost:5000/api/create_record
@@ -82,16 +89,10 @@ class UpdateStudent(Resource):
             return {'error': 'Request must be JSON'}, 400
 
 
-# For GET request to http://localhost:5000/api/get_record/<id> for a particular student        
-class StudentDetail(Resource):
-    def get(self, student_id):
-        student = Student.query.get_or_404(student_id)
-        return student.__repr__()
             
-
-
+# API Routes
 api.add_resource(GetStudents, '/api/get_records')
-api.add_resource(StudentDetail, '/api/get_record/<int:student_id>')
+api.add_resource(GetSingleStudent, '/api/get_record/<int:student_id>')
 api.add_resource(CreateStudent, '/api/create_record')
 api.add_resource(UpdateStudent, '/api/update_record/<int:id>')
 
